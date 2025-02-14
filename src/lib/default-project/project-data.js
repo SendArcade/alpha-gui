@@ -51,13 +51,24 @@ const projectData = translateFunction => {
             },
             {
                 isStage: false,
-                name: translator(messages.sprite, {index: 1}),
+                name: 'SendArcade',
                 variables: {},
                 lists: {},
                 broadcasts: {},
                 blocks: {
-                    'L*5M/ryWQ^Bl4)])NOpO': {
-                        opcode: 'coreExample_exampleOpcode',
+                    solana: {
+                        opcode: 'solana_enableSolana',
+                        next: null,
+                        parent: null,
+                        inputs: {},
+                        fields: {},
+                        shadow: true,
+                        topLevel: true,
+                        x: 0,
+                        y: 0
+                    },
+                    jupiter: {
+                        opcode: 'jupiter_enableJupiter',
                         next: null,
                         parent: null,
                         inputs: {},
@@ -73,12 +84,12 @@ const projectData = translateFunction => {
                 costumes: [
                     {
                         assetId: '927d672925e7b99f7813735c484c6922',
-                        name: translator(messages.costume, {index: 1}),
+                        name: 'SendArcade',
                         bitmapResolution: 1,
                         md5ext: '927d672925e7b99f7813735c484c6922.svg',
                         dataFormat: 'svg',
-                        rotationCenterX: 30.74937882782359,
-                        rotationCenterY: 58.864768144346826
+                        rotationCenterX: 121,
+                        rotationCenterY: 121
                     }
                 ],
                 sounds: [],
@@ -92,7 +103,7 @@ const projectData = translateFunction => {
                 rotationStyle: 'all around'
             }
         ],
-        extensions: ['coreExample'],
+        extensions: ['solana', 'jupiter'],
         meta: {
             semver: '3.0.0',
             vm: '0.1.0',

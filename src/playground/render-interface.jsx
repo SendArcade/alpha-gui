@@ -50,7 +50,7 @@ const handleClickAddonSettings = addonId => {
 
 const messages = defineMessages({
     defaultTitle: {
-        defaultMessage: 'Run Scratch projects faster',
+        defaultMessage: 'Low-Code Solana, High-Speed Innovation',
         description: 'Title of homepage',
         id: 'tw.guiDefaultTitle'
     }

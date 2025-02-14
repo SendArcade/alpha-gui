@@ -266,7 +266,7 @@ module.exports = [
                 chunks: ['editor'],
                 template: 'src/playground/index.ejs',
                 filename: 'editor.html',
-                title: `${APP_NAME} - Run Scratch projects faster`,
+                title: `${APP_NAME} - Low-Code Solana, High-Speed Innovation`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon
             }),

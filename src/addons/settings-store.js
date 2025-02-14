@@ -114,6 +114,7 @@ class SettingsStore extends EventTargetShim {
         this.remote = false;
     }
 
+    // eslint-disable-next-line valid-jsdoc
     /**
      * @private
      */
@@ -172,6 +173,7 @@ class SettingsStore extends EventTargetShim {
         }
     }
 
+    // eslint-disable-next-line valid-jsdoc
     /**
      * @private
      */
@@ -182,6 +184,7 @@ class SettingsStore extends EventTargetShim {
         throw new Error(`Unknown addon store: ${addonId}`);
     }
 
+    // eslint-disable-next-line valid-jsdoc
     /**
      * @private
      */
@@ -192,6 +195,7 @@ class SettingsStore extends EventTargetShim {
         throw new Error(`Unknown addon: ${addonId}`);
     }
 
+    // eslint-disable-next-line valid-jsdoc
     /**
      * @private
      */
@@ -232,6 +236,7 @@ class SettingsStore extends EventTargetShim {
         return settingObject.default;
     }
 
+    // eslint-disable-next-line valid-jsdoc
     /**
      * @private
      */
