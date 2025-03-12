@@ -140,4 +140,3 @@ Alpha GUI is licensed under the GPL-3.0. See the [LICENSE](LICENSE) file for det
 ## Contact
 
 For questions or suggestions, please open an issue in this repository or join the [Alpha Contributors Telegram Group](https://t.me/+1oBJOPTg0VQ0Njll).
-```
