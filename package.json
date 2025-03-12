@@ -4,10 +4,10 @@
   "description": "Graphical User Interface for creating and running Send Arcade Alpha projects",
   "author": "Arpit Singh Bhatia",
   "license": "GPL-3.0",
-  "homepage": "",
+  "homepage": "https://github.com/SendArcade/alpha-gui",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/SendArcade/alpha-gui"
   },
   "main": "./dist/alpha-gui.js",
   "scripts": {
