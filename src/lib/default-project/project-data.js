@@ -88,6 +88,28 @@ const projectData = translateFunction => {
                         topLevel: true,
                         x: 0,
                         y: 0
+                    },
+                    pumpFun: {
+                        opcode: 'pumpFun_enablePumpFun',
+                        next: null,
+                        parent: null,
+                        inputs: {},
+                        fields: {},
+                        shadow: true,
+                        topLevel: true,
+                        x: 0,
+                        y: 0
+                    },
+                    metaplex: {
+                        opcode: 'metaplex_enableMetaplex',
+                        next: null,
+                        parent: null,
+                        inputs: {},
+                        fields: {},
+                        shadow: true,
+                        topLevel: true,
+                        x: 0,
+                        y: 0
                     }
                 },
                 comments: {},

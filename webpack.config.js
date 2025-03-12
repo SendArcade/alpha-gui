@@ -67,7 +67,10 @@ const base = {
         alias: {
             'text-encoding$': path.resolve(__dirname, 'src/lib/tw-text-encoder'),
             'scratch-render-fonts$': path.resolve(__dirname, 'src/lib/tw-scratch-render-fonts'),
-            // Aliases for node built-ins for browser compatibility:
+            // Metaplex UMI aliases - using more flexible paths
+            '@metaplex-foundation/umi/serializers': path.resolve(__dirname, 'node_modules/alpha-vm/node_modules/@metaplex-foundation/umi'),
+            '@metaplex-foundation/umi': path.resolve(__dirname, 'node_modules/alpha-vm/node_modules/@metaplex-foundation/umi'),
+            // Existing aliases
             'path': require.resolve('path-browserify'),
             'crypto': require.resolve('crypto-browserify'),
             'stream': require.resolve('stream-browserify'),
@@ -75,8 +78,14 @@ const base = {
             'util': require.resolve('util/'),
             'assert': require.resolve('assert/')
         },
-        // (Optional: Ensure we check "module" first before "main" to pick up ESM when available)
-        mainFields: ['browser', 'module', 'main']
+        modules: [
+            'node_modules',
+            path.resolve(__dirname, 'node_modules'),
+            path.resolve(__dirname, 'node_modules/alpha-vm/node_modules')
+        ],
+        mainFields: ['browser', 'module', 'main'],
+        // Add extensions to help with module resolution
+        extensions: ['.js', '.jsx', '.mjs', '.cjs', '.json']
     },
     // For webpack 4, use the "node" property for modules that have no browser equivalent.
     node: {
@@ -104,7 +113,7 @@ const base = {
                 loader: 'babel-loader',
                 include: [
                     path.resolve(__dirname, 'src'),
-                    // Include the linked repo’s source so its modern syntax is transpiled
+                    // Include the linked repo's source so its modern syntax is transpiled
                     path.resolve(__dirname, '../alpha-vm/src'),
                     // NEW: Include alpha-vm's source in node_modules to transpile modern syntax
                     /node_modules[\\/]alpha-vm[\\/]src/,
@@ -128,8 +137,11 @@ const base = {
                     /node_modules[\\/]@noble[\\/]curves/,
                     /node_modules[\\/]superstruct/,
                     /node_modules[\\/]rpc-websockets/,
-                    // NEW: Also include any @solana modules inside the linked repo’s node_modules
-                    /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@solana/
+                    // NEW: Also include any @solana modules inside the linked repo's node_modules
+                    /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@solana/,
+                    // Add Metaplex modules to be transpiled
+                    /node_modules[\\/]@metaplex-foundation[\\/]umi/,
+                    /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@metaplex-foundation[\\/]umi/
                 ],
                 options: {
                     // Explicitly disable babelrc so we don't catch various config in lower dependencies.
@@ -144,7 +156,10 @@ const base = {
                         '@babel/plugin-proposal-logical-assignment-operators',
                         '@babel/plugin-proposal-optional-chaining',
                         '@babel/plugin-proposal-nullish-coalescing-operator',
-                        '@babel/plugin-proposal-class-properties' // For class fields (e.g. "socket;" declarations)
+                        '@babel/plugin-proposal-class-properties',
+                        // Add class properties transform to handle class fields
+                        '@babel/plugin-proposal-private-methods',
+                        '@babel/plugin-proposal-private-property-in-object'
                     ],
                     presets: ['@babel/preset-env', '@babel/preset-react'],
                     // NEW OVERRIDE: For any files in alpha-vm's node_modules/@solana, force Babel to output CommonJS.
@@ -186,6 +201,61 @@ const base = {
                         }
                     }
                 ]
+            },
+            // Add new rule for Metaplex UMI modules
+            {
+                test: /\.(mjs|cjs|js)$/,
+                include: [
+                    /node_modules[\\/]@metaplex-foundation[\\/]umi/,
+                    /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@metaplex-foundation[\\/]umi/
+                ],
+                type: 'javascript/auto',
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        babelrc: false,
+                        presets: [
+                            ['@babel/preset-env', {
+                                modules: 'commonjs'
+                            }]
+                        ],
+                        plugins: [
+                            '@babel/plugin-proposal-class-properties',
+                            '@babel/plugin-proposal-private-methods',
+                            '@babel/plugin-proposal-private-property-in-object'
+                        ]
+                    }
+                }
+            },
+            // Update the Metaplex Foundation modules rule
+            {
+                test: /\.(js|mjs|cjs)$/,
+                include: [
+                    /node_modules[\\/]@metaplex-foundation/,
+                    /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@metaplex-foundation/
+                ],
+                type: 'javascript/auto',
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        babelrc: false,
+                        presets: [
+                            ['@babel/preset-env', {
+                                modules: 'commonjs',
+                                targets: {
+                                    node: 'current'
+                                }
+                            }]
+                        ],
+                        plugins: [
+                            '@babel/plugin-proposal-class-properties',
+                            '@babel/plugin-proposal-private-methods',
+                            '@babel/plugin-proposal-private-property-in-object',
+                            '@babel/plugin-proposal-optional-chaining',
+                            '@babel/plugin-proposal-nullish-coalescing-operator'
+                        ]
+                    }
+                }
             }
         ]
     },
