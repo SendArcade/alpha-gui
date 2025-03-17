@@ -92,7 +92,7 @@ import fileIcon from './icon--file.svg';
 import editIcon from './icon--edit.svg';
 import addonsIcon from './addons.svg';
 import errorIcon from './tw-error.svg';
-import logo from './send_arcade_logo.svg';
+import logo from './alpha.svg';
 
 import ninetiesLogo from './nineties_logo.svg';
 import catLogo from './cat_logo.svg';
@@ -481,7 +481,7 @@ class MenuBar extends React.Component {
                             alt="Logo"
                             className={styles.logoImage}
                         />
-                        <span className={styles.logoText}>Send Arcade Alpha</span>
+                        <span className={styles.logoText}>Alpha</span>
                     </div>
                     <div className={styles.fileGroup}>
                         {this.props.errors.length > 0 && <div>

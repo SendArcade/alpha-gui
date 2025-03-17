@@ -78,6 +78,17 @@ const projectData = translateFunction => {
                         x: 0,
                         y: 0
                     },
+                    helius: {
+                        opcode: 'helius_enableHelius',
+                        next: null,
+                        parent: null,
+                        inputs: {},
+                        fields: {},
+                        shadow: true,
+                        topLevel: true,
+                        x: 0,
+                        y: 0
+                    },
                     send: {
                         opcode: 'send_enableSend',
                         next: null,

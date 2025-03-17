@@ -72,11 +72,11 @@ class Router {
     }
 
     onhashchange () {
-
+        // no-op
     }
 
     onpathchange () {
-
+        // no-op
     }
 
     generateURL () {
@@ -98,22 +98,24 @@ class HashRouter extends Router {
 class FileHashRouter extends HashRouter {
     constructor (callbacks) {
         super(callbacks);
+        // For the desired behavior, we set the editor route to '/' so that the editor always loads at the root.
         this.playerPath = location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1);
-        this.editorPath = `${this.playerPath}editor.html`;
+        this.editorPath = '/'; // Editor route is now the root "/"
         this.fullscreenPath = `${this.playerPath}fullscreen.html`;
     }
 
     onpathchange () {
         const pathName = location.pathname;
-
-        if (pathName === this.playerPath) {
-            this.onSetIsPlayerOnly(true);
-            this.onSetIsFullScreen(false);
-        } else if (pathName === this.editorPath) {
+        // If the pathname is "/" then we are in editor mode.
+        if (pathName === '/') {
             this.onSetIsPlayerOnly(false);
             this.onSetIsFullScreen(false);
         } else if (pathName === this.fullscreenPath) {
             this.onSetIsFullScreen(true);
+        } else {
+            // For any other path, you could set player mode (or handle differently as needed).
+            this.onSetIsPlayerOnly(true);
+            this.onSetIsFullScreen(false);
         }
     }
 
@@ -134,7 +136,8 @@ class FileHashRouter extends HashRouter {
         } else if (isPlayerOnly) {
             newPathname = this.playerPath;
         } else {
-            newPathname = this.editorPath;
+            // For editor mode, always use the root "/"
+            newPathname = '/';
         }
 
         return `${newPathname}${location.search}${newHash ? `#${newHash}` : ''}`;

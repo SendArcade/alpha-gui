@@ -40,14 +40,9 @@ const base = {
         disableHostCheck: true,
         compress: true,
         port: process.env.PORT || 8601,
-        // allows ROUTING_STYLE=wildcard to work properly
+        // Simple fallback that routes everything to index.html
         historyApiFallback: {
-            rewrites: [
-                {from: /^\/\d+\/fullscreen\/?$/, to: '/fullscreen.html'},
-                {from: /^\/\d+\/editor\/?$/, to: '/editor.html'},
-                {from: /^\/\d+\/embed\/?$/, to: '/embed.html'},
-                {from: /^\/addons\/?$/, to: '/addons.html'}
-            ]
+            index: '/index.html'
         }
     },
     output: {
@@ -292,7 +287,9 @@ module.exports = [
     // to run editor examples
     defaultsDeep({}, base, {
         entry: {
-            'editor': './src/playground/editor.jsx',
+            // Keep only the editor entry point and rename it to main
+            'main': './src/playground/editor.jsx',
+            // If you need other pages, keep them
             'player': './src/playground/player.jsx',
             'fullscreen': './src/playground/fullscreen.jsx',
             'embed': './src/playground/embed.jsx',
@@ -333,9 +330,9 @@ module.exports = [
                 'process.env.ROUTING_STYLE': JSON.stringify(process.env.ROUTING_STYLE || 'filehash')
             }),
             new HtmlWebpackPlugin({
-                chunks: ['editor'],
+                chunks: ['main'],
                 template: 'src/playground/index.ejs',
-                filename: 'editor.html',
+                filename: 'index.html',
                 title: `${APP_NAME} - Low-Code Solana, High-Speed Innovation`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon
@@ -343,7 +340,7 @@ module.exports = [
             new HtmlWebpackPlugin({
                 chunks: ['player'],
                 template: 'src/playground/index.ejs',
-                filename: 'index.html',
+                filename: 'player.html',
                 title: `${APP_NAME} - Low-Code Solana, High-Speed Innovation`,
                 ...htmlWebpackPluginCommon
             }),
