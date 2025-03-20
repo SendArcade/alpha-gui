@@ -121,6 +121,17 @@ const projectData = translateFunction => {
                         topLevel: true,
                         x: 0,
                         y: 0
+                    },
+                    coingecko: {
+                        opcode: 'coingecko_enableCoingecko',
+                        next: null,
+                        parent: null,
+                        inputs: {},
+                        fields: {},
+                        shadow: true,
+                        topLevel: true,
+                        x: 0,
+                        y: 0
                     }
                 },
                 comments: {},
