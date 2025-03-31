@@ -99,7 +99,6 @@ const ProjectFetcherHOC = function (WrappedComponent) {
             }
         }
         fetchProject (projectId, loadingState) {
-            // for fetching from github can use raw files like this: https://raw.githubusercontent.com/asbx35/a/main/Project.sb3
             // tw: clear and stop the VM before fetching
             // these will also happen later after the project is fetched, but fetching may take a while and
             // the project shouldn't be running while fetching the new project
@@ -127,15 +126,13 @@ const ProjectFetcherHOC = function (WrappedComponent) {
                         return r.arrayBuffer();
                     })
                     .then(buffer => ({data: buffer}));
-            } else if (this.props.projectHost === 'https://projects.scratch.mit.edu') {
+            } else {
                 // TW: Temporary hack for project tokens
                 assetPromise = fetchProjectToken(projectId)
                     .then(token => {
                         storage.setProjectToken(token);
                         return storage.load(storage.AssetType.Project, projectId, storage.DataFormat.JSON);
                     });
-            } else {
-                assetPromise = storage.load(storage.AssetType.Project, projectId, storage.DataFormat.JSON);
             }
 
             return assetPromise

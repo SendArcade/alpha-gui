@@ -26,6 +26,9 @@ const htmlWebpackPluginCommon = {
     APP_NAME
 };
 
+// When this changes, the path for all JS files will change, bypassing any HTTP caches
+const CACHE_EPOCH = 'pentapod';
+
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool:
@@ -44,8 +47,14 @@ const base = {
     },
     output: {
         library: 'GUI',
-        filename: 'js/[name].js',
-        chunkFilename: 'js/[name].js',
+        filename:
+            process.env.NODE_ENV === 'production' ?
+                `js/${CACHE_EPOCH}/[name].[contenthash].js` :
+                'js/[name].js',
+        chunkFilename:
+            process.env.NODE_ENV === 'production' ?
+                `js/${CACHE_EPOCH}/[name].[contenthash].js` :
+                'js/[name].js',
         publicPath: root
     },
     resolve: {
@@ -284,8 +293,7 @@ module.exports = [
             'player': './src/playground/player.jsx',
             'fullscreen': './src/playground/fullscreen.jsx',
             'embed': './src/playground/embed.jsx',
-            'addon-settings': './src/playground/addon-settings.jsx',
-            'integration': './src/integration/index.js'
+            'addon-settings': './src/playground/addon-settings.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'build')
@@ -302,6 +310,14 @@ module.exports = [
                     }
                 }
             ])
+        },
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+                minChunks: 2,
+                minSize: 50000,
+                maxInitialRequests: 5
+            }
         },
         plugins: base.plugins.concat([
             new webpack.DefinePlugin({

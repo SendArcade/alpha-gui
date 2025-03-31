@@ -229,7 +229,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
             return Promise.all(this.props.vm.assets
                 .filter(asset => !asset.clean)
                 .map(
-                    asset => (this.props.onUpdateAssetData || storage.store)(
+                    asset => storage.store(
                         asset.assetType,
                         asset.dataFormat,
                         asset.data,
@@ -339,7 +339,6 @@ const ProjectSaverHOC = function (WrappedComponent) {
                 onUpdatedProject,
                 onUpdateProjectData,
                 onUpdateProjectThumbnail,
-                onUpdateAssetData,
                 reduxProjectId,
                 reduxProjectTitle,
                 setAutoSaveTimeoutId: setAutoSaveTimeoutIdProp,
@@ -391,7 +390,6 @@ const ProjectSaverHOC = function (WrappedComponent) {
         onShowSavingAlert: PropTypes.func,
         onUpdateProjectData: PropTypes.func.isRequired,
         onUpdateProjectThumbnail: PropTypes.func,
-        onUpdateAssetData: PropTypes.func,
         onUpdatedProject: PropTypes.func,
         projectChanged: PropTypes.bool,
         reduxProjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
