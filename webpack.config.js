@@ -108,35 +108,18 @@ const base = {
                 loader: 'babel-loader',
                 include: [
                     path.resolve(__dirname, 'src'),
-                    // Include the linked repo's source so its modern syntax is transpiled
                     path.resolve(__dirname, '../alpha-vm/src'),
-                    // NEW: Include alpha-vm's source in node_modules to transpile modern syntax
                     /node_modules[\\/]alpha-vm[\\/]src/,
                     /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
                     /node_modules[\\/]pify/,
                     /node_modules[\\/]@vernier[\\/]godirect/,
-                    /node_modules[\\/]@solana[\\/]web3\.js/,
-                    /node_modules[\\/]@solana[\\/]spl-token/,
-                    // NEW: Include @solana/codecs-core to transpile modern syntax (e.g. nullish coalescing)
-                    /node_modules[\\/]@solana[\\/]codecs-core/,
-                    // NEW: Include @solana/codecs-strings to transpile modern syntax
-                    /node_modules[\\/]@solana[\\/]codecs-strings/,
-                    // NEW: Include @solana[\\/]codecs-numbers to transpile modern syntax (e.g. optional chaining)
-                    /node_modules[\\/]@solana[\\/]codecs-numbers/,
-                    // NEW: Include @solana/options to transpile modern syntax (e.g. optional chaining, nullish coalescing)
-                    /node_modules[\\/]@solana[\\/]options/,
-                    // NEW: Include @solana/codecs-data-structures to transpile modern syntax
-                    /node_modules[\\/]@solana[\\/]codecs-data-structures/,
-                    // NEW: Include @solana/errors to transpile modern class field syntax
-                    /node_modules[\\/]@solana[\\/]errors/,
+                    /node_modules[\\/]@solana/,
                     /node_modules[\\/]@noble[\\/]curves/,
                     /node_modules[\\/]superstruct/,
                     /node_modules[\\/]rpc-websockets/,
-                    // NEW: Also include any @solana modules inside the linked repo's node_modules
                     /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@solana/,
-                    // Add Metaplex modules to be transpiled
-                    /node_modules[\\/]@metaplex-foundation[\\/]umi/,
-                    /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@metaplex-foundation[\\/]umi/
+                    /node_modules[\\/]@metaplex-foundation/,
+                    /node_modules[\\/]alpha-vm[\\/]node_modules[\\/]@metaplex-foundation/
                 ],
                 options: {
                     // Explicitly disable babelrc so we don't catch various config in lower dependencies.
