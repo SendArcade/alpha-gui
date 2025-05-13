@@ -100,6 +100,7 @@ import prehistoricLogo from './prehistoric-logo.svg';
 import oldtimeyLogo from './oldtimey-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
+import {APP_NAME} from '../../lib/brand';
 
 import SeeInsideButton from './tw-see-inside.jsx';
 import {notScratchDesktop} from '../../lib/isScratchDesktop.js';
@@ -481,7 +482,7 @@ class MenuBar extends React.Component {
                             alt="Logo"
                             className={styles.logoImage}
                         />
-                        <span className={styles.logoText}>Alpha</span>
+                        <span className={styles.logoText}>{APP_NAME}</span>
                     </div>
                     <div className={styles.fileGroup}>
                         {this.props.errors.length > 0 && <div>
