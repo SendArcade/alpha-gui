@@ -34,12 +34,9 @@ import MenuBar from '../components/menu-bar/menu-bar.jsx';
 import AddonChannels from '../addons/channels';
 import {loadServiceWorker} from './load-service-worker';
 import runAddons from '../addons/entry';
-import InvalidEmbed from '../components/tw-invalid-embed/invalid-embed.jsx';
 import {APP_NAME} from '../lib/brand.js';
 
 import styles from './interface.css';
-
-const isInvalidEmbed = window.parent !== window;
 
 const handleClickAddonSettings = addonId => {
     // addonId might be a string of the addon to focus on, undefined, or an event (treat like undefined)
@@ -93,10 +90,6 @@ class Interface extends React.Component {
         }
     }
     render () {
-        if (isInvalidEmbed) {
-            return <InvalidEmbed />;
-        }
-
         const {
             /* eslint-disable no-unused-vars */
             intl,
